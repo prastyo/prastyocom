@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>budi-prastyo.json</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             background-color: #1e1e1e;
@@ -16,7 +15,9 @@
             display: flex;
             background-color: #1e1e1e;
             border-radius: 4px;
-            overflow: hidden;
+            overflow-x: auto;    /* Menambahkan horizontal scroll */
+            white-space: nowrap; /* Mencegah text wrapping */
+            min-width: 100%;
         }
         
         .line-numbers {
@@ -25,9 +26,9 @@
             background-color: #252525;
             color: #858585;
             user-select: none;
+            flex-shrink: 0;      /* Mencegah nomor baris menyusut */
         }
 
-        /* Styling untuk tiap nomor baris */
         .line-number {
             display: block;
             line-height: 1.5;
@@ -38,6 +39,7 @@
             padding: 1em;
             flex-grow: 1;
             position: relative;
+            min-width: min-content; /* Memastikan konten tidak terpotong */
         }
         
         .string { color: #ce9178; }
@@ -63,6 +65,7 @@
             display: block;
             line-height: 1.5;
             height: 1.5em;
+            white-space: nowrap; /* Mencegah text wrapping */
         }
 
         /* Animasi Cursor */
@@ -75,8 +78,8 @@
 
         .cursor {
             display: inline-block;
-            width: 3px;
-            height: 20px;
+            width: 8px;
+            height: 18px;
             background-color: #fff;
             margin-left: 4px;
             animation: blink 1s step-end infinite;
