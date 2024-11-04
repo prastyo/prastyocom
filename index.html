@@ -1,12 +1,122 @@
-{
-    "status": "success",
-    "code": 200,
-    "message": "User profile loaded",
-    "data": {
-        "name": "Budi Prastyo",
-        "title": "Fullstuck Developer",
-        "email": "budi@prastyo.com",
-        "phone": "+628999914199",
-        "created_at": "2024-11-03 10:37:11"
-    }
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .code-container {
+            display: flex;
+            background-color: #1e1e1e;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .line-numbers {
+            padding: 1em 0.5em;
+            text-align: right;
+            background-color: #252525;
+            color: #858585;
+            user-select: none;
+        }
+
+        /* Styling untuk tiap nomor baris */
+        .line-number {
+            display: block;
+            line-height: 1.5;
+            height: 1.5em;
+        }
+        
+        .code-content {
+            padding: 1em;
+            flex-grow: 1;
+            position: relative;
+        }
+        
+        .string { color: #ce9178; }
+        .number { color: #b5cea8; }
+        .boolean { color: #569cd6; }
+        .null { color: #569cd6; }
+        .key { color: #9cdcfe; }
+        .bracket-l1 { color: #ffd700; }
+        .bracket-l2 { color: #ff79c6; }
+        .bracket-l3 { color: #50fa7b; }
+        .colon { color: #6272a4; }
+
+        /* Indentasi dengan CSS */
+        .indent-1 {
+            padding-left: 2em;
+        }
+        .indent-2 {
+            padding-left: 4em;
+        }
+
+        /* Line styling */
+        .line {
+            display: block;
+            line-height: 1.5;
+            height: 1.5em;
+        }
+
+        /* Animasi Cursor */
+        .last-line {
+            display: flex;
+            align-items: center;
+            height: 1.5em;
+            line-height: 1.5;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background-color: #fff;
+            margin-left: 4px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="code-container">
+        <div class="line-numbers">
+            <span class="line-number">1</span>
+            <span class="line-number">2</span>
+            <span class="line-number">3</span>
+            <span class="line-number">4</span>
+            <span class="line-number">5</span>
+            <span class="line-number">6</span>
+            <span class="line-number">7</span>
+            <span class="line-number">8</span>
+            <span class="line-number">9</span>
+            <span class="line-number">10</span>
+            <span class="line-number">11</span>
+            <span class="line-number">12</span>
+            <span class="line-number">13</span>
+        </div>
+        <div class="code-content">
+            <span class="line"><span class="bracket-l1">{</span></span>
+            <span class="line indent-1"><span class="key">"status"</span><span class="colon">:</span> <span class="string">"success"</span>,</span>
+            <span class="line indent-1"><span class="key">"code"</span><span class="colon">:</span> <span class="number">200</span>,</span>
+            <span class="line indent-1"><span class="key">"message"</span><span class="colon">:</span> <span class="string">"User profile loaded"</span>,</span>
+            <span class="line indent-1"><span class="key">"data"</span><span class="colon">:</span> <span class="bracket-l2">{</span></span>
+            <span class="line indent-2"><span class="key">"name"</span><span class="colon">:</span> <span class="string">"Budi Prastyo"</span>,</span>
+            <span class="line indent-2"><span class="key">"title"</span><span class="colon">:</span> <span class="string">"Fullstuck Developer"</span>,</span>
+            <span class="line indent-2"><span class="key">"email"</span><span class="colon">:</span> <span class="string">"budi@prastyo.com"</span>,</span>
+            <span class="line indent-2"><span class="key">"phone"</span><span class="colon">:</span> <span class="string">"+628999914199"</span>,</span>
+            <span class="line indent-2"><span class="key">"created_at"</span><span class="colon">:</span> <span class="string">"2024-11-03 10:37:11"</span></span>
+            <span class="line indent-1"><span class="bracket-l2">}</span></span>
+            <div class="last-line"><span class="bracket-l1">}</span><span class="cursor"></span></div>
+        </div>
+    </div>
+</body>
+</html>
