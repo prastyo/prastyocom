@@ -235,8 +235,8 @@
                 <div class="code-line indent-2"><span class="string">"Production &amp; Supply Chain Systems"</span><span class="punctuation">,</span></div>
                 <div class="code-line indent-2"><span class="string">"Legacy System Modernization"</span></div>
                 <div class="code-line indent-1"><span class="punctuation">],</span></div>
-                <div class="code-line indent-1"><span class="key">"developer_motto"</span><span class="punctuation">: </span><span class="string">"Less chaos. More automation."</span></div>
-                <div class="code-line"><span class="bracket-1">}</span><span class="cursor" aria-hidden="true"></span></div>
+                <div class="code-line indent-1"><span class="key">"developer_motto"</span><span class="punctuation">: </span><span class="string">"<span id="motto-text">Less chaos. More automation.</span>"</span><span class="cursor" aria-hidden="true"></span></div>
+                <div class="code-line"><span class="bracket-1">}</span></div>
             </div>
         </section>
 
@@ -252,5 +252,52 @@
             </div>
         </footer>
     </main>
+    <script>
+        (function () {
+            var motto = document.getElementById('motto-text');
+            var correctText = 'Less chaos. More automation.';
+            var typoText = 'Less chaos. More automaiton.';
+            var index = 0;
+
+            motto.textContent = '';
+
+            function typeText(text, speed, callback) {
+                var timer = setInterval(function () {
+                    motto.textContent = text.substring(0, index);
+                    index++;
+
+                    if (index > text.length) {
+                        clearInterval(timer);
+                        if (callback) {
+                            setTimeout(callback, 900);
+                        }
+                    }
+                }, speed);
+            }
+
+            function deleteText(count, callback) {
+                var timer = setInterval(function () {
+                    var current = motto.textContent;
+                    motto.textContent = current.substring(0, current.length - 1);
+
+                    if (motto.textContent.length <= count) {
+                        clearInterval(timer);
+                        index = motto.textContent.length;
+                        callback();
+                    }
+                }, 55);
+            }
+
+            setTimeout(function () {
+                index = 0;
+                typeText(typoText, 85, function () {
+                    deleteText('Less chaos. More '.length, function () {
+                        index = motto.textContent.length;
+                        typeText(correctText, 85);
+                    });
+                });
+            }, 700);
+        })();
+    </script>
 </body>
 </html>
