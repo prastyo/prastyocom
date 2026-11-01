@@ -235,7 +235,7 @@
                 <div class="code-line indent-2"><span class="string">"Production &amp; Supply Chain Systems"</span><span class="punctuation">,</span></div>
                 <div class="code-line indent-2"><span class="string">"Legacy System Modernization"</span></div>
                 <div class="code-line indent-1"><span class="punctuation">],</span></div>
-                <div class="code-line indent-1"><span class="key">"developer_motto"</span><span class="punctuation">: </span><span class="string">"<span id="motto-text">Less chaos. More automation.</span>"</span><span class="cursor" aria-hidden="true"></span></div>
+                <div class="code-line indent-1"><span class="key">"developer_motto"</span><span class="punctuation">: </span><span class="string">"<span id="motto-text">Less chaos. More automation.</span><span class="cursor" aria-hidden="true"></span>"</span></div>
                 <div class="code-line"><span class="bracket-1">}</span></div>
             </div>
         </section>
@@ -257,46 +257,57 @@
             var motto = document.getElementById('motto-text');
             var correctText = 'Less chaos. More automation.';
             var typoText = 'Less chaos. More automaiton.';
-            var index = 0;
+            var prefix = 'Less chaos. More ';
+
+            function randomDelay() {
+                // Vary typing speed and occasionally pause to simulate thinking.
+                var delay = 45 + Math.floor(Math.random() * 105);
+                if (Math.random() < 0.14) {
+                    delay += 250 + Math.floor(Math.random() * 550);
+                }
+                return delay;
+            }
+
+            function typeText(text, position, callback) {
+                function typeNext() {
+                    if (position >= text.length) {
+                        if (callback) {
+                            setTimeout(callback, 750 + Math.floor(Math.random() * 500));
+                        }
+                        return;
+                    }
+
+                    position++;
+                    motto.textContent = text.substring(0, position);
+                    setTimeout(typeNext, randomDelay());
+                }
+                typeNext();
+            }
+
+            function deleteToLength(length, callback) {
+                function deleteNext() {
+                    if (motto.textContent.length <= length) {
+                        if (callback) {
+                            setTimeout(callback, 250 + Math.floor(Math.random() * 350));
+                        }
+                        return;
+                    }
+
+                    motto.textContent = motto.textContent.substring(0, motto.textContent.length - 1);
+                    setTimeout(deleteNext, 45 + Math.floor(Math.random() * 75));
+                }
+                deleteNext();
+            }
 
             motto.textContent = '';
 
-            function typeText(text, speed, callback) {
-                var timer = setInterval(function () {
-                    motto.textContent = text.substring(0, index);
-                    index++;
-
-                    if (index > text.length) {
-                        clearInterval(timer);
-                        if (callback) {
-                            setTimeout(callback, 900);
-                        }
-                    }
-                }, speed);
-            }
-
-            function deleteText(count, callback) {
-                var timer = setInterval(function () {
-                    var current = motto.textContent;
-                    motto.textContent = current.substring(0, current.length - 1);
-
-                    if (motto.textContent.length <= count) {
-                        clearInterval(timer);
-                        index = motto.textContent.length;
-                        callback();
-                    }
-                }, 55);
-            }
-
             setTimeout(function () {
-                index = 0;
-                typeText(typoText, 85, function () {
-                    deleteText('Less chaos. More '.length, function () {
-                        index = motto.textContent.length;
-                        typeText(correctText, 85);
+                typeText(typoText, 0, function () {
+                    deleteToLength(prefix.length, function () {
+                        typeText(correctText, prefix.length);
                     });
                 });
-            }, 700);
+            }, 650);
         })();
     </script>
 </body>
