@@ -1,128 +1,256 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Budi Prastyo</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-body {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-    font-family: 'Consolas', 'Monaco', monospace;
-    margin: 0;
-}
-.code-container {
-    display: flex;
-    background-color: #1e1e1e;
-    border-radius: 4px;
-    overflow-x: auto;
-    white-space: nowrap;
-    min-width: 100%;
-}
-.line-numbers {
-    padding: 1em .5em;
-    text-align: right;
-    background-color: #252525;
-    color: #858585;
-    user-select: none;
-    flex-shrink: 0;
-}
-.line-number {
-    display: block;
-    line-height: 1.5;
-    height: 1.5em;
-}
-.code-content {
-    padding: 1em;
-    flex-grow: 1;
-    position: relative;
-    min-width: min-content;
-}
-.string { color: #ce9178; }
-.number { color: #b5cea8; }
-.boolean { color: #569cd6; }
-.null { color: #569cd6; }
-.key { color: #9cdcfe; }
-.bracket-l1 { color: #ffd700; }
-.bracket-l2 { color: #ff79c6; }
-.bracket-l3 { color: #50fa7b; }
-.indent-1 { margin-left: 4ch; }
-.indent-2 { margin-left: 8ch; }
-.line-guide-l1 {
-    position: absolute;
-    left: calc(1em + 2px);
-    top: calc(1.5em * 2);
-    height: calc(1.5em * 10);
-    width: 1px;
-    background-color: rgba(255,255,255,.1);
-}
-.line-guide-l2 {
-    position: absolute;
-    left: calc(1em + 4ch + 2px);
-    top: calc(1.5em * 6);
-    height: calc(1.5em * 5);
-    width: 1px;
-    background-color: rgba(255,255,255,.1);
-}
-.line {
-    display: block;
-    line-height: 1.5;
-    height: 1.5em;
-    white-space: nowrap;
-}
-.last-line {
-    display: flex;
-    align-items: center;
-    height: 1.5em;
-    line-height: 1.5;
-}
-.cursor {
-    display: inline-block;
-    width: 2px;
-    height: 1.2em;
-    background-color: #fff;
-    animation: blink 1s step-end infinite;
-    vertical-align: middle;
-}
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1e1e1e">
+    <meta name="description" content="Budi Prastyo — Software Developer & System Builder. Turning real-world problems into working systems.">
+    <title>Budi Prastyo | Software Developer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            min-height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 20px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            font-family: Consolas, Monaco, "Courier New", monospace;
+        }
+
+        .editor {
+            width: 100%;
+            max-width: 900px;
+            overflow: hidden;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #1e1e1e;
+            box-shadow: 0 22px 70px rgba(0, 0, 0, .35);
+        }
+
+        .titlebar {
+            display: flex;
+            align-items: center;
+            min-height: 42px;
+            padding: 0 14px;
+            border-bottom: 1px solid #333;
+            background: #252526;
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 7px;
+            margin-right: 18px;
+        }
+
+        .window-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #5a5a5a;
+        }
+
+        .window-dots span:first-child { background: #f16b64; }
+        .window-dots span:nth-child(2) { background: #e5c04b; }
+        .window-dots span:nth-child(3) { background: #62c554; }
+
+        .tab {
+            align-self: stretch;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 2px solid #007acc;
+            background: #1e1e1e;
+            color: #eee;
+            font-size: 12px;
+        }
+
+        .tab-icon {
+            margin-right: 8px;
+            color: #e5c07b;
+        }
+
+        .editor-body {
+            display: flex;
+            overflow-x: auto;
+            padding: 22px 0 25px;
+        }
+
+        .line-numbers {
+            flex: 0 0 58px;
+            padding: 0 15px 0 8px;
+            color: #858585;
+            text-align: right;
+            user-select: none;
+        }
+
+        .line-numbers span,
+        .code-line {
+            display: block;
+            min-height: 1.8em;
+            line-height: 1.8;
+            white-space: pre;
+        }
+
+        .code {
+            position: relative;
+            min-width: max-content;
+            padding-right: 28px;
+        }
+
+        .code-line {
+            padding-right: 24px;
+        }
+
+        .indent-1 { padding-left: 4ch; }
+        .indent-2 { padding-left: 8ch; }
+
+        .key { color: #9cdcfe; }
+        .string { color: #ce9178; }
+        .bracket-1 { color: #ffd700; }
+        .bracket-2 { color: #da70d6; }
+        .bracket-3 { color: #4ec9b0; }
+        .punctuation { color: #d4d4d4; }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.15em;
+            margin-left: 5px;
+            background: #f1f1f1;
+            vertical-align: -2px;
+            animation: blink 1s steps(2, start) infinite;
+        }
+
+        @keyframes blink {
+            to { visibility: hidden; }
+        }
+
+        .statusbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 24px;
+            padding: 0 12px;
+            background: #007acc;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+        }
+
+        .status-left, .status-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                align-items: flex-start;
+                padding: 24px 10px;
+            }
+
+            .editor {
+                border-radius: 5px;
+            }
+
+            .editor-body {
+                padding-top: 18px;
+            }
+
+            .line-numbers {
+                flex-basis: 42px;
+                padding-right: 10px;
+            }
+
+            .code {
+                padding-right: 18px;
+                font-size: 12px;
+            }
+
+            .titlebar {
+                min-height: 38px;
+            }
+
+            .tab {
+                font-size: 11px;
+            }
+
+            .status-right {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cursor {
+                animation: none;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="code-container">
-    <div class="line-numbers">
-        <span class="line-number">1</span>
-        <span class="line-number">2</span>
-        <span class="line-number">3</span>
-        <span class="line-number">4</span>
-        <span class="line-number">5</span>
-        <span class="line-number">6</span>
-        <span class="line-number">7</span>
-        <span class="line-number">8</span>
-        <span class="line-number">9</span>
-        <span class="line-number">10</span>
-        <span class="line-number">11</span>
-        <span class="line-number">12</span>
-        <span class="line-number">13</span>
-    </div>
-    <div class="code-content">
-        <div class="line-guide-l1"></div>
-        <div class="line-guide-l2"></div>
-        <span class="line"><span class="bracket-l1">{</span></span>
-        <span class="line indent-1"><span class="key">"coffee_dependency"</span>: <span class="boolean">true</span>,</span>
-        <span class="line indent-1"><span class="key">"http_status"</span>: <span class="number">200</span>,</span>
-        <span class="line indent-1"><span class="key">"debug_log"</span>: <span class="string">"User profile loaded with caffeine"</span>,</span>
-        <span class="line indent-1"><span class="key">"data_packet"</span>: <span class="bracket-l2">{</span></span>
-        <span class="line indent-2"><span class="key">"var_wizard"</span>: <span class="string">"Budi Prastyo"</span>,</span>
-        <span class="line indent-2"><span class="key">"job_title_or_whatever"</span>: <span class="string">"Fullsnack Developer"</span>,</span>
-        <span class="line indent-2"><span class="key">"bug_handler_email"</span>: <span class="string">"budi@prastyo.com"</span>,</span>
-        <span class="line indent-2"><span class="key">"panic_hotline"</span>: <span class="string">"+628999914199"</span>,</span>
-        <span class="line indent-2"><span class="key">"repo_origin"</span>: <span class="string">"Kudus, Jawa Tengah"</span>,</span>
-        <span class="line indent-2"><span class="key">"coding_survival_years"</span>: <span class="string">"10+ years of code chaos survived"</span></span>
-        <span class="line indent-1"><span class="bracket-l2">}</span></span>
-        <span class="line"><span class="bracket-l1">}</span><span class="cursor"></span></span>
-    </div>
-</div>
+    <main class="editor" aria-label="Budi Prastyo developer profile">
+        <header class="titlebar">
+            <div class="window-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="tab"><span class="tab-icon">{ }</span> profile.json</div>
+        </header>
+
+        <section class="editor-body">
+            <div class="line-numbers" aria-hidden="true">
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+                <span>13</span>
+                <span>14</span>
+                <span>15</span>
+            </div>
+
+            <div class="code" role="img" aria-label="JSON profile for Budi Prastyo">
+                <div class="code-line"><span class="bracket-1">{</span></div>
+                <div class="code-line indent-1"><span class="key">"name"</span><span class="punctuation">: </span><span class="string">"Budi Prastyo"</span><span class="punctuation">,</span></div>
+                <div class="code-line indent-1"><span class="key">"role"</span><span class="punctuation">: </span><span class="string">"Software Developer &amp; System Builder"</span><span class="punctuation">,</span></div>
+                <div class="code-line indent-1"><span class="key">"location"</span><span class="punctuation">: </span><span class="string">"Central Java, Indonesia"</span><span class="punctuation">,</span></div>
+                <div class="code-line indent-1"><span class="key">"mission"</span><span class="punctuation">: </span><span class="string">"Turning real-world problems into working systems"</span><span class="punctuation">,</span></div>
+                <div class="code-line indent-1"><span class="key">"currently_building"</span><span class="punctuation">: </span><span class="string">"KSM"</span><span class="punctuation">,</span></div>
+                <div class="code-line indent-1"><span class="key">"specialties"</span><span class="punctuation">: [</span></div>
+                <div class="code-line indent-2"><span class="string">"Business Process Automation"</span><span class="punctuation">,</span></div>
+                <div class="code-line indent-2"><span class="string">"Production &amp; Supply Chain Systems"</span><span class="punctuation">,</span></div>
+                <div class="code-line indent-2"><span class="string">"Legacy System Modernization"</span></div>
+                <div class="code-line indent-1"><span class="punctuation">],</span></div>
+                <div class="code-line indent-1"><span class="key">"developer_motto"</span><span class="punctuation">: </span><span class="string">"Less chaos. More automation."</span></div>
+                <div class="code-line"><span class="bracket-1">}</span><span class="cursor" aria-hidden="true"></span></div>
+            </div>
+        </section>
+
+        <footer class="statusbar">
+            <div class="status-left">
+                <span>● Ready</span>
+                <span>main</span>
+            </div>
+            <div class="status-right">
+                <span>JSON</span>
+                <span>UTF-8</span>
+                <span>Spaces: 4</span>
+            </div>
+        </footer>
+    </main>
 </body>
 </html>
